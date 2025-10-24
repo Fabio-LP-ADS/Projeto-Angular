@@ -1,11 +1,52 @@
+
 import { Component } from '@angular/core';
+import { PessoaService } from '../../core/services/pessoa.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Pessoa } from '../../core/types/types';
 
 @Component({
-  selector: 'app-pessoas-form',
-  imports: [],
+  selector: 'app-pessoa-form',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './pessoas-form.component.html',
   styleUrl: './pessoas-form.component.css'
 })
-export class PessoasFormComponent {
+export class PessoaFormComponent {
+  titulo = 'Cadastro de Pessoas';
 
+  pessoaId?: number;
+
+  pessoa: Pessoa = {} as Pessoa;
+
+  constructor(private service: PessoaService,
+    private router: Router,
+    private rotaAtiva: ActivatedRoute
+  ) {
+
+    this.pessoaId = Number(this.rotaAtiva.snapshot.params['id']);
+
+    if (this.pessoaId) {
+      service.buscarPorId(this.pessoaId).subscribe(pessoa => {
+        if (pessoa) {
+          this.pessoa.id = pessoa.id;
+          this.pessoa.nome = pessoa.nome;
+          this.pessoa.sobrenome = pessoa.sobrenome;
+          this.pessoa.dtNascimento = pessoa.dtNascimento;
+        }
+      })
+    }
+  } // Fim do
+
+  submeter() {
+    if (this.pessoaId) {
+      this.service.editar(this.pessoa).subscribe(() => {
+        this.router.navigate(['/pessoas'])
+      })
+    } else {
+      this.service.incluir(this.pessoa).subscribe(() => {
+        this.router.navigate(['/pessoas'])
+      })
+    }
+  }
 }

@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { PessoaLoginComponent } from './pages/pessoa-login/pessoa-login.component';
-import { PessoasFormComponent } from './pages/pessoas-form/pessoas-form.component';
+import { PessoaFormComponent } from './pages/pessoas-form/pessoas-form.component';
+import { PessoaListagemComponent } from './pages/pessoa-listagem/pessoa-listagem.component';
 
 export const routes: Routes = [
     {
@@ -14,6 +15,7 @@ export const routes: Routes = [
         component: PessoaLoginComponent,
         title: 'Login',
     },
-    {path:'pessoas', component: PessoaLoginComponent},
-    {path: 'pessoas/incluir', component: PessoasFormComponent}
+
+    { path: 'pessoas', component: PessoaListagemComponent },
+    { path: 'pessoas/incluir', component: PessoaFormComponent }
 ];

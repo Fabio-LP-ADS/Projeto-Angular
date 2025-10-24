@@ -1,39 +1,26 @@
-<ul>
-@for(item of listaPessoas; track item){
-    <li>{{item.nome}}</li>
-}
-</ul>  
-
-
 <div class="content-container">
-
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>nome</th>
-                <th>sobrenome</th>
-                <th>Dt. Nascimento</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Data de Nascimento</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @for (item of listaPessoas; track item) {
-                <tr>
-                    <td>{{item.id}}</td>
-                    <td>{{item.nome}}</td>
-                    <td>{{item.sobrenome}}</td>
-                    <td>{{item.dtNascimento}}</td>
-		   <td>
-                    <button class="btn-editar">Editar</button>
-                    <button class="btn-excluir">Excluir</button>
-                </td>	
-                </tr>
+            @for (pessoa of listaPessoas; track pessoa){
+            <tr>
+                <td>{{pessoa.id}}</td>
+                <td>{{pessoa.nome}}</td>
+                <td>{{pessoa.sobrenome}}</td>
+                <td>{{pessoa.dtNascimento}}</td>
+                <td>
+                  <button class="btn-editar" [routerLink]="['alterar', pessoa.id]">Editar</button>
+                  <button class=" btn-excluir" (click)="excluir(pessoa.id!)">Excluir</button>
+                </td>
+            </tr>
             }
+
         </tbody>
-    </table>
-
-    <button class="btn-incluir">Incluir</button>
-
-
-</div>
